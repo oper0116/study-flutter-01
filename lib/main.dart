@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/detail.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,11 +15,17 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-          title: 'My App',
-          theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
-          home: MyHomePage()),
+        title: 'My App',
+        theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
+        // home: MyHomePage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => MyHomePage(),
+          '/detail': (context) => Detail()
+        },
+      ),
     );
   }
 }
@@ -60,6 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavoritesPage();
         break;
+      case 2:
+        page = Detail();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -74,11 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 NavigationRailDestination(
                     icon: Icon(Icons.home), label: Text('Home')),
                 NavigationRailDestination(
-                    icon: Icon(Icons.favorite), label: Text('Favorites'))
+                    icon: Icon(Icons.favorite), label: Text('Favorites')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.add_alert_rounded),
+                    label: Text('Detail Page Move')),
               ],
               selectedIndex: selectedIndex,
               onDestinationSelected: (value) => {
                 setState(() {
+                  if (value == 2) {
+                    Navigator.pushNamed(context, '/detail');
+                    return;
+                  }
                   selectedIndex = value;
                 })
               },
@@ -120,19 +137,21 @@ class GeneratorPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton.icon(
-                  onPressed: () {
-                    appState.toggleFavorite();
-                  },
-                  icon: Icon(icon),
-                  label: Text('Like')),
+                onPressed: () {
+                  appState.toggleFavorite();
+                },
+                icon: Icon(icon),
+                label: Text('Like'),
+              ),
               SizedBox(
                 width: 10,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    appState.getNext();
-                  },
-                  child: Text('Next')),
+                onPressed: () {
+                  appState.getNext();
+                },
+                child: Text('Next'),
+              ),
             ],
           )
         ]),
