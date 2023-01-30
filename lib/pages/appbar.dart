@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/tab/photo_list.dart';
 
 class AppBarPage extends StatefulWidget {
   const AppBarPage({
@@ -43,6 +44,15 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
       BottomNavigationBarItem(icon: Icon(Icons.abc), label: '최근 본'),
     ];
 
+    // Widget page;
+    // switch (_currentIndex.value.toInt()) {
+    //   case 0:
+    //     page = PhotoList();
+    //     break;
+    //   default:
+    //     throw UnimplementedError('no widget for $_currentIndex');
+    // }
+
     final drawerHeader = UserAccountsDrawerHeader(
       accountName: Text('HanDongHee'),
       accountEmail: Text('oper0116@gmail.com'),
@@ -84,6 +94,7 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
             },
             child: _NavigationDestinationView(
                 key: UniqueKey(),
+                currentIndex: _currentIndex.value.toInt(),
                 item: bottomNavaigationBarItems[_currentIndex.value]),
           ),
         ),
@@ -111,19 +122,33 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
 class _NavigationDestinationView extends StatelessWidget {
   const _NavigationDestinationView({
     Key? key,
+    required this.currentIndex,
     required this.item,
   }) : super(key: key);
 
+  final num currentIndex;
   final BottomNavigationBarItem item;
 
   @override
   Widget build(BuildContext context) {
+    print(key);
+
+    print('currentIndex: $currentIndex');
+
+    Widget page;
+    switch (currentIndex) {
+      case 0:
+        page = PhotoList();
+        break;
+      default:
+        page = Center(child: Text('a'));
+        break;
+    }
+
     return Stack(
       children: [
         ExcludeSemantics(
-          child: Center(
-            child: Text('$this.item'),
-          ),
+          child: page,
         )
       ],
     );
