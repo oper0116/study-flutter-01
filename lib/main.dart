@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/detail.dart';
+import 'package:flutter_application_1/pages/appbar.dart';
+import 'package:flutter_application_1/pages/detail.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MyHomePage(),
-          '/detail': (context) => Detail()
+          '/detail': (context) => DetailPage(),
+          '/appbar': (context) =>
+              AppBarPage(restorationId: 'bottom_navigation_tab_index')
         },
       ),
     );
@@ -68,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = FavoritesPage();
         break;
       case 2:
-        page = Detail();
+        page = DetailPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -82,18 +85,32 @@ class _MyHomePageState extends State<MyHomePage> {
               extended: constraints.maxWidth >= 600,
               destinations: [
                 NavigationRailDestination(
-                    icon: Icon(Icons.home), label: Text('Home')),
+                  icon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
                 NavigationRailDestination(
-                    icon: Icon(Icons.favorite), label: Text('Favorites')),
+                  icon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
                 NavigationRailDestination(
-                    icon: Icon(Icons.add_alert_rounded),
-                    label: Text('Detail Page Move')),
+                  icon: Icon(Icons.add_alert_rounded),
+                  label: Text('Detail Page Move'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.add_a_photo),
+                  label: Text('AppBar'),
+                ),
               ],
               selectedIndex: selectedIndex,
               onDestinationSelected: (value) => {
                 setState(() {
                   if (value == 2) {
                     Navigator.pushNamed(context, '/detail');
+                    return;
+                  }
+
+                  if (value == 3) {
+                    Navigator.pushNamed(context, '/appbar');
                     return;
                   }
                   selectedIndex = value;
