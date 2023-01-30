@@ -43,13 +43,34 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
       BottomNavigationBarItem(icon: Icon(Icons.abc), label: '최근 본'),
     ];
 
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text('HanDongHee'),
+      accountEmail: Text('oper0116@gmail.com'),
+      currentAccountPicture: const CircleAvatar(child: FlutterLogo(size: 42.0)),
+    );
+
+    final drawerItems = ListView(
+      children: [
+        drawerHeader,
+        ListTile(
+          title: Text('List1'),
+          leading: Icon(Icons.favorite),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Text('List2'),
+          leading: Icon(Icons.abc),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-          icon: Icon(Icons.menu),
-          onPressed: () => {},
-        ),
         title: Text('AppBar'),
       ),
       body: Center(
@@ -81,6 +102,7 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
           });
         },
       ),
+      drawer: Drawer(child: drawerItems),
     );
   }
 }
