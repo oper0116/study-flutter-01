@@ -131,10 +131,6 @@ class _NavigationDestinationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(key);
-
-    print('currentIndex: $currentIndex');
-
     Widget page;
     switch (currentIndex) {
       case 0:
