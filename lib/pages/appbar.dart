@@ -44,15 +44,6 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
       BottomNavigationBarItem(icon: Icon(Icons.abc), label: '최근 본'),
     ];
 
-    // Widget page;
-    // switch (_currentIndex.value.toInt()) {
-    //   case 0:
-    //     page = PhotoList();
-    //     break;
-    //   default:
-    //     throw UnimplementedError('no widget for $_currentIndex');
-    // }
-
     final drawerHeader = UserAccountsDrawerHeader(
       accountName: Text('HanDongHee'),
       accountEmail: Text('oper0116@gmail.com'),
@@ -181,7 +172,6 @@ class NavDrawer extends StatelessWidget {
         )
       ],
     );
-
     return drawerItems;
   }
 }
