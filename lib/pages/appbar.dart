@@ -71,7 +71,10 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
         currentIndex: _currentIndex.value,
         type: BottomNavigationBarType.fixed,
         selectedFontSize: textTheme.bodySmall!.fontSize!,
+        selectedItemColor: colorScheme.onPrimary,
         unselectedFontSize: textTheme.bodySmall!.fontSize!,
+        unselectedItemColor: colorScheme.onPrimary.withOpacity(0.25),
+        backgroundColor: colorScheme.primary,
         onTap: (index) {
           setState(() {
             _currentIndex.value = index;
