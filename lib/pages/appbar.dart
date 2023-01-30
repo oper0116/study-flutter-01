@@ -32,6 +32,9 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     var bottomNavaigationBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: '카테고리'),
       BottomNavigationBarItem(icon: Icon(Icons.api_sharp), label: '선물하기'),
@@ -66,6 +69,9 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavaigationBarItems,
         currentIndex: _currentIndex.value,
+        type: BottomNavigationBarType.fixed,
+        selectedFontSize: textTheme.bodySmall!.fontSize!,
+        unselectedFontSize: textTheme.bodySmall!.fontSize!,
         onTap: (index) {
           setState(() {
             _currentIndex.value = index;
@@ -89,11 +95,10 @@ class _NavigationDestinationView extends StatelessWidget {
     return Stack(
       children: [
         ExcludeSemantics(
-            child: Center(
           child: Center(
-            child: Text('AA'),
+            child: Text('$this.item'),
           ),
-        ))
+        )
       ],
     );
   }
