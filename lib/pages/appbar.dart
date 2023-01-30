@@ -70,40 +70,41 @@ class _AppBarPageState extends State<AppBarPage> with RestorationMixin {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('AppBar'),
-      ),
-      body: Center(
-        child: PageTransitionSwitcher(
-          transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
-            return FadeThroughTransition(
-              animation: primaryAnimation,
-              secondaryAnimation: secondaryAnimation,
-              child: child,
-            );
-          },
-          child: _NavigationDestinationView(
-              key: UniqueKey(),
-              item: bottomNavaigationBarItems[_currentIndex.value]),
+        appBar: AppBar(
+          title: Text('AppBar'),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: bottomNavaigationBarItems,
-        currentIndex: _currentIndex.value,
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: textTheme.bodySmall!.fontSize!,
-        selectedItemColor: colorScheme.onPrimary,
-        unselectedFontSize: textTheme.bodySmall!.fontSize!,
-        unselectedItemColor: colorScheme.onPrimary.withOpacity(0.25),
-        backgroundColor: colorScheme.primary,
-        onTap: (index) {
-          setState(() {
-            _currentIndex.value = index;
-          });
-        },
-      ),
-      drawer: Drawer(child: drawerItems),
-    );
+        body: Center(
+          child: PageTransitionSwitcher(
+            transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+              return FadeThroughTransition(
+                animation: primaryAnimation,
+                secondaryAnimation: secondaryAnimation,
+                child: child,
+              );
+            },
+            child: _NavigationDestinationView(
+                key: UniqueKey(),
+                item: bottomNavaigationBarItems[_currentIndex.value]),
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: bottomNavaigationBarItems,
+          currentIndex: _currentIndex.value,
+          type: BottomNavigationBarType.fixed,
+          selectedFontSize: textTheme.bodySmall!.fontSize!,
+          selectedItemColor: colorScheme.onPrimary,
+          unselectedFontSize: textTheme.bodySmall!.fontSize!,
+          unselectedItemColor: colorScheme.onPrimary.withOpacity(0.25),
+          backgroundColor: colorScheme.primary,
+          onTap: (index) {
+            setState(() {
+              _currentIndex.value = index;
+            });
+          },
+        ),
+        endDrawer: Drawer(
+          child: drawerItems,
+        ));
   }
 }
 
@@ -126,5 +127,40 @@ class _NavigationDestinationView extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class NavDrawer extends StatelessWidget {
+  const NavDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final drawerHeader = UserAccountsDrawerHeader(
+      accountName: Text('HanDongHee'),
+      accountEmail: Text('oper0116@gmail.com'),
+      currentAccountPicture: const CircleAvatar(child: FlutterLogo(size: 42.0)),
+    );
+
+    final drawerItems = ListView(
+      children: [
+        drawerHeader,
+        ListTile(
+          title: Text('List1'),
+          leading: Icon(Icons.favorite),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Text('List2'),
+          leading: Icon(Icons.abc),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
+    return drawerItems;
   }
 }
