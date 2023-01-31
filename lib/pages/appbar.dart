@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/tab/photo_list.dart';
+import 'package:flutter_application_1/pages/tab/product_list.dart';
 
 class AppBarPage extends StatefulWidget {
   const AppBarPage({
@@ -125,6 +126,9 @@ class _NavigationDestinationView extends StatelessWidget {
     Widget page;
     switch (currentIndex) {
       case 0:
+        page = ProductList();
+        break;
+      case 1:
         page = PhotoList();
         break;
       default:
