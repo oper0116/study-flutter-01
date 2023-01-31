@@ -30,7 +30,15 @@ class _PhotoList extends State<PhotoList> {
           future: futureAlbums,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data!.toString());
+              return ListView(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  for (int index = 0; index < snapshot.data!.length; index += 1)
+                    ListTile(
+                        title: Text(snapshot.data![index].title),
+                        subtitle: Text(snapshot.data![index].title))
+                ],
+              );
             } else if (snapshot.hasData) {
               return Text('${snapshot.error}');
             }
