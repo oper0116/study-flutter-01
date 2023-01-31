@@ -30,16 +30,17 @@ class _ProductList extends State<ProductList> {
           future: futureProduct,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text('1');
-              // return ListView(
-              //   padding: EdgeInsets.symmetric(vertical: 8),
-              //   children: [
-              //     for (int index = 0; index < snapshot.data!.length; index += 1)
-              //       ListTile(
-              //           title: Text(snapshot.data![index].title),
-              //           subtitle: Text(snapshot.data![index].title))
-              //   ],
-              // );
+              var products = snapshot.data!.products;
+              return ListView(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  for (int index = 0; index < products.length; index += 1)
+                    ListTile(
+                      title: Text(products[index].title),
+                      subtitle: Text(products[index].title),
+                    )
+                ],
+              );
             } else if (snapshot.hasData) {
               return Text('${snapshot.error}');
             }
@@ -59,8 +60,6 @@ class Product {
   const Product({required this.products, required this.total});
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    var list = List.from(json['products']).map((e) => ProductItem.fromJson(e));
-    print('list: $list');
     return Product(
       products: List.from(json['products'])
           .map((e) => ProductItem.fromJson(e))
