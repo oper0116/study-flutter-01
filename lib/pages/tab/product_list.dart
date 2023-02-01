@@ -75,7 +75,7 @@ class CustomListItem extends StatelessWidget {
         height: 100,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             AspectRatio(
               aspectRatio: 1,
               child: thumbnail,
