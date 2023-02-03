@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/product.dart';
 import 'package:http/http.dart' as http;
 
 class ProductList extends StatefulWidget {
@@ -134,72 +134,6 @@ class ProductDescription extends StatelessWidget {
   }
 }
 
-class Product {
-  final List<ProductItem> products;
-  final int total;
-
-  const Product({required this.products, required this.total});
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      products: List.from(json['products'])
-          .map((e) => ProductItem.fromJson(e))
-          .toList(),
-      total: json['total'],
-    );
-  }
-}
-
-class ProductItem {
-  final int id;
-  final String title;
-  final String description;
-  final int price;
-  final double discountPercentage;
-  final double rating;
-  final int stock;
-  final String brand;
-  final String thumbnail;
-  final String category;
-  // final List<String> images;
-
-  const ProductItem({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.discountPercentage,
-    required this.rating,
-    required this.stock,
-    required this.brand,
-    required this.thumbnail,
-    required this.category,
-    // required this.images,
-  });
-
-  factory ProductItem.fromJson(Map<String, dynamic> json) {
-    print('ProductItem json $json');
-    return ProductItem(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      price: json['price'],
-      discountPercentage: json['discountPercentage'],
-      rating: json['rating'],
-      stock: json['stock'],
-      brand: json['brand'],
-      thumbnail: json['thumbnail'],
-      category: json['category'],
-      // images: json['images'],
-    );
-  }
-}
-
-Product parseProduct(String responseBody) {
-  final parsed = json.decode(responseBody);
-  return Product.fromJson(parsed);
-}
-
 Future<Product> fetchProducts(num currentPage) async {
   const pageViewCnt = 10;
   final currentIndex = pageViewCnt * (currentPage - 1);
@@ -208,7 +142,7 @@ Future<Product> fetchProducts(num currentPage) async {
       'https://dummyjson.com/products?limit=$pageViewCnt&skip=$currentIndex'));
 
   if (response.statusCode == 200) {
-    return compute(parseProduct, response.body);
+    return Product.fromJson(json.decode(response.body));
   }
   throw Exception('Failed to load Album');
 }
