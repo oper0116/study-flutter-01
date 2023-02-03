@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 ## Dummy JSON
 
 - https://dummyjson.com/docs/products
+
+##
+
+flutter pub run build_runner build
